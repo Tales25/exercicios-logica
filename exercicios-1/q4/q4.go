@@ -12,5 +12,32 @@ import "fmt"
 //Caso a lista possua apenas um elemento, a função deve retornar 3.
 
 func ClassifyPrices(prices []int) (int, error) {
-	return 0, fmt.Errorf("")
+	switch {
+	case len(prices) == 0:
+		return 0, fmt.Errorf("empty list")
+	case isGrowing(prices) && len(prices) != 1:
+		return 1, nil
+	case isDecreasing(prices) && len(prices) != 1:
+		return 2, nil
+	default:
+		return 3, nil
+	}
+}
+
+func isGrowing(p []int) bool {
+	for i := 1; i < len(p); i++ {
+		if p[i] <= p[i-1] {
+			return false
+		}
+	}
+	return true
+}
+
+func isDecreasing(p []int) bool {
+	for i := 1; i < len(p); i++ {
+		if p[i] >= p[i-1] {
+			return false
+		}
+	}
+	return true
 }
