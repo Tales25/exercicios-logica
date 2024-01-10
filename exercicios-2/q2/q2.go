@@ -21,5 +21,33 @@ type Participant struct {
 }
 
 func CalculateTeams(participants []Participant) int {
-	return 0
+	math, prog := countParticipants(participants)
+	// role with fewer participants
+	minRole := getMin(math, prog)
+	// "normal" number of groups
+	normalCase := (math + prog) / 4
+	// normalCase < minRole -> exists few groups than participants in the role with fewer participants (minRole)
+	// normalCase > minRole -> can't have more groups than participants in minRole
+	return getMin(normalCase, minRole)
+}
+
+// calculate participants per role
+func countParticipants(participants []Participant) (int, int) {
+	var math, prog int
+	for _, p := range participants {
+		switch p.Role {
+		case "Mathematician":
+			math++
+		case "Programmer":
+			prog++
+		}
+	}
+	return math, prog
+}
+
+func getMin(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
 }
