@@ -1,6 +1,8 @@
 package q5
 
-import "strconv"
+import (
+	"fmt"
+)
 
 //Um novo serviço de e-mail, chamado "CEUBdesk", será inaugurado no CEUB em um futuro próximo. A administração do
 //site quer lançar o projeto o mais rápido possível, por isso eles pedem a sua ajuda. Você é sugerido(a) a implementar o
@@ -18,11 +20,10 @@ func Register(names []string) []string {
 	var answer []string
 
 	for _, name := range names {
-		id := strconv.Itoa(dbMap[name])
 		if _, ok := dbMap[name]; !ok {
 			answer = append(answer, "OK")
 		} else {
-			answer = append(answer, name+id)
+			answer = append(answer, fmt.Sprintf("%s%d", name, dbMap[name]))
 		}
 		dbMap[name]++
 	}
