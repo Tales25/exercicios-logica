@@ -1,5 +1,7 @@
 package q3
 
+import "fmt"
+
 //O cozinheiro Remy preparou uma refeição para si mesmo e, enquanto almoçava, decidiu assistir a um vídeo no RataTube. No
 //entanto, ele tem um tempo limitado de 𝑡 segundos para o almoço. Ele pediu a sua ajuda para escolher o vídeo ideal.
 //
@@ -18,5 +20,16 @@ type Video struct {
 }
 
 func ChooseVideo(videos []Video, time int) (Video, error) {
-	return Video{}, nil
+	var bestVideo Video
+
+	for _, video := range videos {
+		if video.Duration <= time && video.Entertainment >= bestVideo.Entertainment {
+			bestVideo = video
+		}
+		time--
+	}
+	if bestVideo.Entertainment == 0 {
+		return Video{}, fmt.Errorf("video not found")
+	}
+	return bestVideo, nil
 }
