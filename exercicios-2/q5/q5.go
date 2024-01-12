@@ -1,5 +1,7 @@
 package q5
 
+import "strconv"
+
 //Um novo serviço de e-mail, chamado "CEUBdesk", será inaugurado no CEUB em um futuro próximo. A administração do
 //site quer lançar o projeto o mais rápido possível, por isso eles pedem a sua ajuda. Você é sugerido(a) a implementar o
 //protótipo do sistema de registro do site. O sistema deve funcionar com o seguinte princípio.
@@ -12,5 +14,17 @@ package q5
 //o menor `i` é encontrado de forma que namei ainda não exista no banco de dados.
 
 func Register(names []string) []string {
-	return []string{}
+	dbMap := make(map[string]int)
+	var answer []string
+
+	for _, name := range names {
+		id := strconv.Itoa(dbMap[name])
+		if _, ok := dbMap[name]; !ok {
+			answer = append(answer, "OK")
+		} else {
+			answer = append(answer, name+id)
+		}
+		dbMap[name]++
+	}
+	return answer
 }
